@@ -9,24 +9,6 @@ fn xor_hex_bytes(cipher1: &[u8], cipher2: &[u8]) -> Vec<u8> {
     res
 }
 
-
-fn hex_to_ascii(hex_string: &str) -> String {
-    // Decode the hexadecimal string into bytes
-    let bytes = hex::decode(hex_string).expect("Failed to decode hexadecimal string");
-    
-    // Convert bytes to UTF-8 encoded string
-    let ascii_string = String::from_utf8_lossy(&bytes);
-    
-    ascii_string.to_string()
-}
-
-fn pad_with_zeros(bytes: &[u8], length: usize) -> Vec<u8> {
-    let padding_length = length - bytes.len();
-    let mut padded_bytes = vec![0; padding_length];
-    padded_bytes.extend_from_slice(bytes);
-    padded_bytes
-}
-
 fn main() {
 
     let ciphers = vec![
@@ -45,11 +27,11 @@ fn main() {
     let cipher_bytes: Vec<Vec<u8>> = ciphers.iter().map(|f| hex2bytes_unchecked(f)).collect();
     
         for i in 0..ciphers.len() {
-            let mut res: Vec<_> = Vec::new();
+            let mut res: Vec<Vec<u8>> = Vec::new();
             for j in i + 1..ciphers.len()-1 { // Start from i+1 to avoid combinations with self and duplicates
                 if i != j {
                      let xor_ciphers = xor_hex_bytes(&cipher_bytes[i], &cipher_bytes[j]);
-                    let decoded_xor_cipher = Vec::new();
+                    let mut decoded_xor_cipher = Vec::new();
                      for i in xor_ciphers {
                         if i.is_ascii_alphabetic() {
                             decoded_xor_cipher.push(i);
