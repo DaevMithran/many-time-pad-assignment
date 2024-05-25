@@ -2,8 +2,8 @@ use array_bytes::hex2bytes_unchecked;
 
 fn xor_hex_bytes(cipher1: &[u8], cipher2: &[u8]) -> Vec<u8> {
     let mut res = Vec::new();
-    for i in 0..cipher1.len() {
-        res.push(cipher1[i] ^ cipher2[i]);
+    for (x, y) in cipher1.iter().zip(cipher2.iter()) {
+        res.push(x ^ y);
     }
 
     res
