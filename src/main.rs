@@ -43,5 +43,9 @@ fn main() {
                      res.push(decoded_xor_cipher.clone());
                 }
             }
+
+            for i in res {
+                println!("{}", String::from_utf8(i).unwrap());
+            }
         }
 }
